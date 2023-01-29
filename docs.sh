@@ -11,7 +11,7 @@ docsDir="$HOME/Documents"
 
 main () {
     bookName=$(find "${docsDir}" -iname "*.pdf" |
-        awk -F '/' '{print $NF}' |
+        awk -F '/' '{print $(NF-1)"/"$NF}' |
         sort -u |
         uniq |
         ${DMENU} -i -p 'Select a document to read:' ${lines} ${colors} ${font})
