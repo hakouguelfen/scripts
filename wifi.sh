@@ -12,7 +12,7 @@ main () {
 
     if [ "$device" ]; then
         wifiName=$(echo "$device" | awk '{print $1}')
-        wifiPass=$(${DMENU} -i -p 'Enter password:' ${colors} ${font})
+        wifiPass=$(${DMENU} -i -p 'Enter password:' ${lines} ${colors} ${font})
 
         nmcli device wifi connect "$wifiName" password "$wifiPass"
     else

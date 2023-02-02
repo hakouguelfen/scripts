@@ -10,14 +10,16 @@ DMENU="dmenu"
 docsDir="$HOME/Documents"
 
 main () {
-    bookName=$(find "${docsDir}" -iname "*.pdf" |
+    bookDir=$(find "${docsDir}" -iname "*.pdf" |
         awk -F '/' '{print $(NF-1)"/"$NF}' |
         sort -u |
         uniq |
         ${DMENU} -i -p 'Select a document to read:' ${lines} ${colors} ${font})
 
-    if [ "$bookName" ]; then
-        book=$(find "${docsDir}" -iname "${bookName}")
+    if [ "$bookDir" ]; then
+        bookName=$(awk -F '/' '{print $NF}' <<< "$bookDir")
+
+        book=$(awk -F'/' '{print $NF}' | find "${docsDir}" -iname "${bookName}")
         zathura "${book}"
     fi
 }
