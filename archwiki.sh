@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-lines="-l 20 -h 30 "
+# dmenu theming
+bg="#282c34"
+fg="#d9e0ee"
+container="#d9e0ee"
+
+lines="-l 20 -h 35"
 font="-fn FiraCode"
-colors="-nb #282c34 -nf #9899a0 -sb #F28FAD -sf #2C323E"
+colors="-nb $bg -nf $fg -sb $container -sf $bg"
+
 DMENU="dmenu"
 
 wikiDir="/usr/share/doc/arch-wiki/html/en/"

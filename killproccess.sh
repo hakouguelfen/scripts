@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
 # dmenu theming
-lines="-l 20 -h 30 "
-font="-fn FiraCode"
-colors="-nb #2C323E -nf #9899a0 -sb #BF616A -sf #2C323E"
+bg="#282c34"
+fg="#d9e0ee"
+container="#d9e0ee"
 
-# DMENU="rofi -dmenu"
+lines="-l 20 -h 35"
+font="-fn FiraCode"
+colors="-nb $bg -nf $fg -sb $container -sf $bg"
+
 DMENU="dmenu"
 
 main () {
