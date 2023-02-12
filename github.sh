@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 main () {
-    github="https://github.com/"
+    github="https://github.com/hakouklvn/"
     repos=$(gh repo list |
                 awk '{
                         if ($(NF-1) == "fork") printf("%-30s %-20s\n", $1, $(NF-2))
