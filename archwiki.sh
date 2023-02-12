@@ -1,26 +1,14 @@
 #!/usr/bin/env bash
 
-# dmenu theming
-bg="#282c34"
-fg="#d9e0ee"
-container="#d9e0ee"
-
-lines="-l 20 -h 35"
-font="-fn FiraCode"
-colors="-nb $bg -nf $fg -sb $container -sf $bg"
-
-DMENU="dmenu"
-
-wikiDir="/usr/share/doc/arch-wiki/html/en/"
-wikiDocs="$(find ${wikiDir} -iname "*.html")"
-
-
 main () {
+    wikiDir="/usr/share/doc/arch-wiki/html/en/"
+    wikiDocs="$(find ${wikiDir} -iname "*.html")"
+
     wiki=$(printf "%s\n" "${wikiDocs}" |
                awk -F "/" '{print $NF}' |
                sed "s/.html//g" |
                sort |
-               ${DMENU} -i -p 'ArchWiki: ' ${lines} ${colors} ${font}) || exit 1;
+               dmenu -i -p 'ArchWiki: ') || exit 1;
 
 
     if [ "$wiki" ]; then
