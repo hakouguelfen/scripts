@@ -1,5 +1,7 @@
 import yaml
 import subprocess
+import os
+
 
 setting = "/home/hakouguelfen/.config/theme/setting.yaml"
 alacritty = "/home/hakouguelfen/.config/alacritty/alacritty.yml"
@@ -7,6 +9,7 @@ gtk = "/home/hakouguelfen/.config/gtk-3.0/settings.ini"
 rofi = "/home/hakouguelfen/.config/rofi/colors.rasi"
 conky = "/home/hakouguelfen/.config/conky/conky.conkyrc"
 dunst = "/home/hakouguelfen/.config/dunst/dunstrc"
+dmenu = "/home/hakouguelfen/.config/dmenu/config.def.h"
 options = ["light theme", "dark theme"]
 
 command = ["dmenu", "-i", "-p", "Choose a theme for your system:"]
@@ -129,6 +132,18 @@ def updateDunst(option):
     with open(dunst, "w") as dunst_writer:
         dunst_writer.writelines(dunst_setting)
 
+def updateDmenu(option):
+    with open(dmenu, "r") as dmenu_file:
+        dmenu_setting = dmenu_file.readlines()
+
+    if option == "light theme":
+        dmenu_setting[0] = '#include "themes/light.h"\n'
+
+    if option == "dark theme":
+        dmenu_setting[0] = '#include "themes/custom.h"\n'
+
+    with open(dmenu, "w") as dmenu_writer:
+        dmenu_writer.writelines(dmenu_setting)
 
 def main():
     option = subprocess.run(
@@ -138,6 +153,9 @@ def main():
         universal_newlines=True,
     ).stdout.strip()
     try:
+        if len(option) == 0:
+            return
+
         updateSetting(option)
         updateAlacritty(option)
         updateGtk(option)
@@ -145,13 +163,20 @@ def main():
         updateRofi(option)
         updateConky(option)
         updateDunst(option)
+        updateDmenu(option)
     except:
         subprocess.run(["notify-send", "theme script", "an error has occured"])
     finally:
-        subprocess.run(["emacsclient", "-e", "(restart-emacs)"])
+        if len(option) == 0:
+            return
+        # subprocess.run(["emacsclient", "-e", "(restart-emacs)"])
         subprocess.run(["qtile", "cmd-obj", "-o", "cmd", "-f", "reload_config"])
         subprocess.run(["killall", "dunst"])
         subprocess.run(["dunst", "&"])
+
+        os.chdir('.config/dmenu/')
+        subprocess.run(["rm", "-rf", "config.h"])
+        subprocess.run(["make", "install"])
 
 
 if __name__ == "__main__":
