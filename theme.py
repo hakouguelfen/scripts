@@ -1,6 +1,5 @@
 import yaml
 import subprocess
-import os
 
 
 setting = "/home/hakouguelfen/.config/theme/setting.yaml"
@@ -163,20 +162,16 @@ def main():
         updateRofi(option)
         updateConky(option)
         updateDunst(option)
-        updateDmenu(option)
+        # updateDmenu(option)
     except:
         subprocess.run(["notify-send", "theme script", "an error has occured"])
     finally:
         if len(option) == 0:
             return
-        # subprocess.run(["emacsclient", "-e", "(restart-emacs)"])
+        subprocess.run(["emacsclient", "-e", "(restart-emacs)"])
         subprocess.run(["qtile", "cmd-obj", "-o", "cmd", "-f", "reload_config"])
         subprocess.run(["killall", "dunst"])
         subprocess.run(["dunst", "&"])
-
-        os.chdir('.config/dmenu/')
-        subprocess.run(["rm", "-rf", "config.h"])
-        subprocess.run(["make", "install"])
 
 
 if __name__ == "__main__":
