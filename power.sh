@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
+# dmenu_path=".local/bin/dmenu/dmenu"
+
 actions=(Suspend Restart Shutdown)
-selected=$(printf "%s\n" "${actions[@]}" | dmenu -i -p 'Options: ')
+selected=$(printf "%s\n" "${actions[@]}" | wofi -i -p 'Options: ')
 
 if [ "$selected" ]; then
     case $selected in

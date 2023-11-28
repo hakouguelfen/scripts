@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+dmenu_path=".local/bin/dmenu/dmenu"
 main () {
     proccessName=$(ps -au "$USER" |
         awk '{print $4}' |
         sort -u |
         uniq |
-        dmenu -i -p 'Search and select process to kill:')
+        wofi -i -p 'Search and select process to kill:')
 
     if [ "$proccessName" ]; then
         pid=$(pgrep "$proccessName")
