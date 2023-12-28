@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
 main () {
-    vidoesDir="$HOME/Vidoes"
+    vidoesDir="$HOME/Videos"
 
     dunst "$vidoesDir"
     tvShowDir=$(ls "${vidoesDir}" |
         sort -u |
-        wofi -i -p 'Select what you want to watch:')
+        fuzzel -d -i -p 'Select what you want to watch:')
 
-    tvShow=$(find "$vidoesDir"/"$tvShowDir" -regex '.*\.\(mp4\|mpv\)')
+    tvShow=$(find "$vidoesDir"/"$tvShowDir" -regex '.*\.\(mp4\|mpv\|mkv\)')
     subtitle=$(find "$vidoesDir"/"$tvShowDir" -regex '.*\.\(srt\|ass\)')
 
-    [[ -z "$subtitle" ]] && notify-send "No subtitle found" && mpv "$tvShow"
+    [[ -z "$subtitle" ]] &&  mpv "$tvShow"
 
     [[ "$subtitle" && "$tvShow" ]] && mpv --sub-files="$subtitle" "$tvShow"
 }
