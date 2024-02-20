@@ -7,11 +7,11 @@ main () {
     links[github]="https://github.com/"
 
     platform=$(printf "%s\n" "google" "youtube" "github"|
-                   wofi -i -p 'Chooose a platfrom to search 🌍 :')
+                   fuzzel -dip 'Chooose a platfrom to search : ')
 
     if [ "$platform" ]; then
         query=$(printf "" |
-                    wofi -i -p 'Enter your search :')
+                    fuzzel -d -i -p 'Enter your search :')
 
         [ "$query" ] && xdg-open "${links[$platform]}${query}"
     fi
