@@ -7,7 +7,7 @@ main () {
         awk -F "$HOME"'/Documents/' '{print $(NF-1)"/"$NF}' |
         sort -u |
         uniq |
-        fuzzel -d -i -p 'Select a document to read: ')
+        dmenu -p 'Select a document to read: ')
 
     if [ "$bookDir" ]; then
         bookName=$(awk -F '/' '{print $NF}' <<< "$bookDir")

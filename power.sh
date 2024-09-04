@@ -3,7 +3,7 @@
 # dmenu_path=".local/bin/dmenu/dmenu"
 
 actions=(Suspend Restart Shutdown)
-selected=$(printf "%s\n" "${actions[@]}" | fuzzel -d -i -p 'Options: ')
+selected=$(printf "%s\n" "${actions[@]}" | dmenu -p 'Options: ')
 
 if [ "$selected" ]; then
     case $selected in
