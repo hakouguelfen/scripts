@@ -3,7 +3,7 @@
 main () {
     docsDir="$HOME/Documents"
 
-    bookDir=$(find "${docsDir}" -iname "*.pdf" -o -iname "*.docx" |
+    bookDir=$(find "${docsDir}" -iname "*.pdf" -o -iname "*.docx" -o -iname "*.epub"|
         awk -F "$HOME"'/Documents/' '{print $(NF-1)"/"$NF}' |
         sort -u |
         uniq |
@@ -17,6 +17,7 @@ main () {
 
         [ "$extension" = "pdf" ] && zathura "${book}" && exit;
         [ "$extension" = "docx" ] && abiword "${book}" && exit;
+        [ "$extension" = "epub" ] && foliate "${book}" && exit;
     fi
 }
 
