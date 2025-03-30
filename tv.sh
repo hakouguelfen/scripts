@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 
-main () {
-    vidoesDir="$HOME/Videos/movies"
+main() {
+    moviesDir="$HOME/Videos/movies"
 
-    tvShowDir=$(ls "${vidoesDir}" |
+    moviePath=$(find "${moviesDir}" -type d -not -path "${moviesDir}"|
         sort -u |
         dmenu -p 'Select what you want to watch:')
 
-    tvShow=$(find "$vidoesDir"/"$tvShowDir" -regex '.*\.\(mp4\|mpv\|mkv\)')
-    subtitle=$(find "$vidoesDir"/"$tvShowDir" -regex '.*\.\(srt\|ass\)')
+    video=$(find "$moviePath" -regex '.*\.\(mp4\|mpv\|mkv\)')
+    subtitle=$(find "$moviePath" -regex '.*\.\(srt\|ass\)')
 
-    [[ -z "$subtitle" ]] &&  mpv "$tvShow" && exit
-    [[ "$subtitle" && "$tvShow" ]] && mpv --sub-files="$subtitle" "$tvShow" && exit
+    [[ -z "$subtitle" ]] && mpv "$video" && exit
+    [[ "$subtitle" && "$video" ]] && mpv --sub-files="$subtitle" "$video" && exit
 }
-
 
 main "$@"
