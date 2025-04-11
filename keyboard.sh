@@ -8,6 +8,11 @@ if [[ "$keyboard" == "fr" ]]; then
 fi
 
 if [[ "$keyboard" == "ara" ]]; then
+    setxkbmap dz ber
+    pkill -RTMIN+15 dwmblocks
+fi
+
+if [[ "$keyboard" == "dz" ]]; then
     setxkbmap fr
     pkill -RTMIN+15 dwmblocks
 fi
