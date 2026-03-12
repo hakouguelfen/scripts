@@ -25,5 +25,5 @@ fi
 
 next_brightness=$(brightnessctl get)
 next_percentage=$((next_brightness * 100 / max_brightness))
-dunstify -a "$scriptName" -t 1500 -i custom/sun-solid -h string:x-dunst-stack-tag:$msgTag "ⴼⴰⵡⵜ: " -h int:value:"$next_percentage"
+dunstify -a "$scriptName" -t 1500 -i custom/sun-solid -h string:x-dunst-stack-tag:$msgTag "ⴼⴰⵡⵜ" -h int:value:"$next_percentage"
 
